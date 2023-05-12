@@ -1,1 +1,3 @@
-# shake-report-ios
+# ShakeReport
+
+A description of this package.
