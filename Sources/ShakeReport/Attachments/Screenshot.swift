@@ -1,7 +1,8 @@
 import Foundation
 import UIKit
 
-public struct Screenshot {
+public struct Screenshot: Identifiable {
+    public let id = UUID()
     public let uiImage: UIImage?
     
     public init() {
