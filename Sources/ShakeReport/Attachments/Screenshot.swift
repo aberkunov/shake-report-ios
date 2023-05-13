@@ -8,14 +8,7 @@ public struct Screenshot: Identifiable {
     public init() {
         var screenshotImage: UIImage?
         
-        let window: UIWindow?
-        if let sceneWindow = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first {
-            window = sceneWindow
-        } else if let keyWindow = UIApplication.shared.keyWindow {
-            window = keyWindow
-        } else {
-            window = nil
-        }
+        let window = UIWindow.current
         
         guard let layer = window?.layer else {
             uiImage = nil
@@ -32,5 +25,20 @@ public struct Screenshot: Identifiable {
         screenshotImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         uiImage = screenshotImage
+    }
+}
+
+extension UIWindow {
+    static var current: UIWindow? {
+        let window: UIWindow?
+        if let sceneWindow = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first {
+            window = sceneWindow
+        } else if let keyWindow = UIApplication.shared.keyWindow {
+            window = keyWindow
+        } else {
+            window = nil
+        }
+        
+        return window
     }
 }
