@@ -47,7 +47,7 @@ struct ShakeReportFloatingView: View {
         HStack {
             Button {
                 print("button tap")
-                isMinimized.toggle()
+                isMinimized = isMinimized ? false : true
             } label: {
                 Image(systemName: buttonImageName)
                     .font(.system(size: 40))
