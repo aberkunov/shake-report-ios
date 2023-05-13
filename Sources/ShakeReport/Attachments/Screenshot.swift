@@ -30,15 +30,10 @@ public struct Screenshot: Identifiable {
 
 extension UIWindow {
     static var current: UIWindow? {
-        let window: UIWindow?
         if let sceneWindow = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first {
-            window = sceneWindow
-        } else if let keyWindow = UIApplication.shared.keyWindow {
-            window = keyWindow
-        } else {
-            window = nil
+            return sceneWindow
         }
         
-        return window
+        return nil
     }
 }

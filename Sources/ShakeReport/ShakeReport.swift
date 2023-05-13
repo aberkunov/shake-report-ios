@@ -5,7 +5,7 @@ public struct ShakeReport {
     private static let viewTag = 2635289
     static let floatingView: ShakeReportFloatingView = ShakeReportFloatingView(viewModel: ShakeReportFloatingPanelViewModel())
     
-    public static func create() {
+    public static func show() {
         guard let currentWindow = UIWindow.current, currentWindow.viewWithTag(viewTag) == nil else { return }
         
         let floatingViewHosting = UIHostingController(rootView: floatingView)
@@ -21,5 +21,11 @@ public struct ShakeReport {
 //
 //        let mainViewModel = ShakeReportMainViewModelImpl(reportingService: reportingService)
 //        ShakeReportMainView(viewModel: mainViewModel)
+    }
+    
+    public static func close() {
+        guard let currentWindow = UIWindow.current, let floatingWindow = currentWindow.viewWithTag(viewTag) else { return }
+        
+        floatingWindow.removeFromSuperview()
     }
 }
