@@ -15,6 +15,8 @@ public protocol ShakeReportMainViewModel: ObservableObject {
     
     var title: String { get set }
     var description: String { get set }
+    
+    func create() async
 }
 
 public class ShakeReportMainViewModelImpl: ShakeReportMainViewModel {
@@ -29,14 +31,15 @@ public class ShakeReportMainViewModelImpl: ShakeReportMainViewModel {
     @Published public var selectedPriority: TicketPriority?
     @Published public var selectedTeam: Team?
     @Published public var selectedSprint: Sprint?
-    @Published public var selectedUser: User?
+    @Published public var selectedReporter: User?
+    @Published public var selectedAssignee: User?
     
     @Published public var title = ""
     @Published public var description = ""
     public var screenshots = [
-        Screenshot(image: Image(systemName: "person")),
-        Screenshot(image: Image(systemName: "person")),
-        Screenshot(image: Image(systemName: "person"))
+        Screenshot(image: UIImage(systemName: "person")!),
+        Screenshot(image: UIImage(systemName: "person")!),
+        Screenshot(image: UIImage(systemName: "person")!)
     ]
     
     private let reportingService: ReportingService
@@ -56,9 +59,29 @@ public class ShakeReportMainViewModelImpl: ShakeReportMainViewModel {
             print(error)
         }
     }
+    
+    public func create() async {
+        let ticket = Ticket(
+            reporter: selectedReporter,
+            assignee: selectedAssignee,
+            team: selectedTeam,
+            component: selectedComponent,
+            sprint: selectedSprint,
+            priority: selectedPriority,
+            title: title,
+            description: description,
+            screenshots: screenshots.map({ $0.image.jpegData(compressionQuality: 0.8) })
+        )
+        
+        do {
+            try await reportingService.create(ticket)
+        } catch {
+            print(error)
+        }
+    }
 }
 
 public struct Screenshot: Identifiable {
     public let id = UUID()
-    public let image: Image
+    public let image: UIImage
 }

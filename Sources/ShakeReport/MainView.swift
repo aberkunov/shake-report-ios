@@ -72,7 +72,7 @@ public struct ShakeReportMainView<ViewModel: ShakeReportMainViewModel>: View {
                 ScrollView(.horizontal, showsIndicators: true) {
                     HStack {
                         ForEach(viewModel.screenshots) { screenshot in
-                            screenshot.image
+                            Image(uiImage: screenshot.image)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 75, height: 150)
@@ -81,9 +81,18 @@ public struct ShakeReportMainView<ViewModel: ShakeReportMainViewModel>: View {
                         }
                     }
                 }
-                
-                Spacer()
             }.padding()
+            
+            Button("Create Ticket") {
+                Task {
+                    await viewModel.create()
+                }
+            }
+            .frame(width: 300)
+            .padding()
+            .background(.blue)
+            .foregroundColor(.white)
+            .cornerRadius(12)
         }
     }
 }

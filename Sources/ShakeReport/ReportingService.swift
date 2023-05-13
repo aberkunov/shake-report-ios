@@ -4,7 +4,7 @@ public protocol ReportingService {
     func getPrioritoies() async -> [TicketPriority]
     func getSprints() async -> [Sprint]
     func getUsers() async -> [User]
-    func create(ticket: Ticket) async throws
+    func create(_ ticket: Ticket) async throws
 }
 
 #if DEBUG
@@ -30,7 +30,7 @@ struct MockedReportingService: ReportingService {
         return []
     }
     
-    func create(ticket: Ticket) async throws {
+    func create(_ ticket: Ticket) async throws {
         
     }
 }
