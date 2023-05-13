@@ -51,16 +51,25 @@ struct SwiftUIView<ViewModel: MainViewModel>: View {
                     .cornerRadius(12)
                 }
                 
-                TextField("TITLE", text: $viewModel.title, axis: .vertical)
-                    .padding(8)
-                    .background(.gray.opacity(0.1))
-                    .cornerRadius(12)
+                if #available(iOS 16, *) {
+                    TextField("TITLE", text: $viewModel.title, axis: .vertical)
+                        .padding(8)
+                        .background(.gray.opacity(0.1))
+                        .cornerRadius(12)
+                }
                 
-                TextField("BACKGROUND TO STORY", text: $viewModel.description, axis: .vertical)
-                    .padding(8)
-                    .background(.gray.opacity(0.1))
-                    .cornerRadius(12)
+                if #available(iOS 16, *) {
+                    TextField("BACKGROUND TO STORY", text: $viewModel.description, axis: .vertical)
+                        .padding(8)
+                        .background(.gray.opacity(0.1))
+                        .cornerRadius(12)
+                }
                 
+                ScrollView(.horizontal, showsIndicators: true) {
+                    ForEach(viewModel.screenshots) { screenshot in
+                        screenshot.image
+                    }
+                }
                 
                 Spacer()
             }.padding()
