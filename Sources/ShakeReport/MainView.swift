@@ -3,6 +3,9 @@ import SwiftUI
 public struct ShakeReportMainView<ViewModel: ShakeReportMainViewModel>: View {
     @ObservedObject private(set) var viewModel: ViewModel
     
+    @State private var zoomed: Bool = false
+    @Namespace var namespace
+    
     public init(viewModel: ViewModel) {
         self.viewModel = viewModel
     }
@@ -72,12 +75,34 @@ public struct ShakeReportMainView<ViewModel: ShakeReportMainViewModel>: View {
                 ScrollView(.horizontal, showsIndicators: true) {
                     HStack {
                         ForEach(viewModel.screenshots) { screenshot in
-                            Image(uiImage: screenshot.uiImage ?? UIImage())
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 75, height: 150)
-                                .background(.yellow)
-                                .cornerRadius(8)
+                            
+                            if !zoomed {
+                                Image(uiImage: screenshot.uiImage ?? UIImage())
+                                    .resizable()
+                                    .scaledToFit()
+                                    .border(.gray.opacity(0.2))
+                                    .matchedGeometryEffect(id: "title", in: namespace)
+                                    .onTapGesture {
+                                        withAnimation {
+                                            zoomed.toggle()
+                                        }
+                                    }
+                                    .frame(height: 100)
+                                
+                            } else {
+                                Image(uiImage: screenshot.uiImage ?? UIImage())
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(height: 300)
+                                    .border(.gray.opacity(0.2))
+                                    .matchedGeometryEffect(id: "title", in: namespace)
+                                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                                    .onTapGesture {
+                                        withAnimation {
+                                            zoomed.toggle()
+                                        }
+                                    }
+                            }
                         }
                     }
                 }
