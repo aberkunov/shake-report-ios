@@ -66,8 +66,15 @@ struct SwiftUIView<ViewModel: MainViewModel>: View {
                 }
                 
                 ScrollView(.horizontal, showsIndicators: true) {
-                    ForEach(viewModel.screenshots) { screenshot in
-                        screenshot.image
+                    HStack {
+                        ForEach(viewModel.screenshots) { screenshot in
+                            screenshot.image
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 75, height: 150)
+                                .background(.yellow)
+                                .cornerRadius(8)
+                        }
                     }
                 }
                 
