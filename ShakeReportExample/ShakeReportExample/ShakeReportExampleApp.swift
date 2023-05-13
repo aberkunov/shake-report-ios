@@ -38,7 +38,7 @@ struct MockedReportingService: ReportingService {
         return []
     }
     
-    func create(_ ticket: Ticket) async throws {
-        
+    func create(_ ticket: Ticket) async throws -> Ticket? {
+        return nil
     }
 }
