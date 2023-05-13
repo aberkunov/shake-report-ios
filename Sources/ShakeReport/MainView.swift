@@ -72,7 +72,7 @@ public struct ShakeReportMainView<ViewModel: ShakeReportMainViewModel>: View {
                 ScrollView(.horizontal, showsIndicators: true) {
                     HStack {
                         ForEach(viewModel.screenshots) { screenshot in
-                            Image(uiImage: screenshot.image)
+                            Image(uiImage: screenshot.uiImage ?? UIImage())
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 75, height: 150)

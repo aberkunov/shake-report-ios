@@ -36,10 +36,10 @@ public class ShakeReportMainViewModelImpl: ShakeReportMainViewModel {
     
     @Published public var title = ""
     @Published public var description = ""
-    public var screenshots = [
-        Screenshot(image: UIImage(systemName: "person")!),
-        Screenshot(image: UIImage(systemName: "person")!),
-        Screenshot(image: UIImage(systemName: "person")!)
+    public var screenshots: [Screenshot] = [
+//        Screenshot(image: UIImage(systemName: "person")!),
+//        Screenshot(image: UIImage(systemName: "person")!),
+//        Screenshot(image: UIImage(systemName: "person")!)
     ]
     
     private let reportingService: ReportingService
@@ -70,7 +70,7 @@ public class ShakeReportMainViewModelImpl: ShakeReportMainViewModel {
             priority: selectedPriority,
             title: title,
             description: description,
-            screenshots: screenshots.map({ $0.image.jpegData(compressionQuality: 0.8) })
+            screenshots: screenshots.compactMap({ $0.uiImage?.jpegData(compressionQuality: 0.8) })
         )
         
         do {
@@ -79,9 +79,4 @@ public class ShakeReportMainViewModelImpl: ShakeReportMainViewModel {
             print(error)
         }
     }
-}
-
-public struct Screenshot: Identifiable {
-    public let id = UUID()
-    public let image: UIImage
 }
