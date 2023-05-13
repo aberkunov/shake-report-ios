@@ -65,11 +65,11 @@ struct SwiftUIView<ViewModel: MainViewModel>: View {
                         .cornerRadius(12)
                 }
                 
-                ScrollView(.horizontal, showsIndicators: true) {
-                    ForEach(viewModel.screenshots) { screenshot in
-                        screenshot.image
-                    }
-                }
+//                ScrollView(.horizontal, showsIndicators: true) {
+//                    ForEach(viewModel.screenshots) { screenshot in
+//                        screenshot.image
+//                    }
+//                }
                 
                 Spacer()
             }.padding()
