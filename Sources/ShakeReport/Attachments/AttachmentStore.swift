@@ -9,7 +9,7 @@ public class AttachmentStore {
     public private(set) var screenRecordings: [String] = []
     
     func makeScreenshot() {
-        screenshots.append(Screenshot())
+//        screenshots.append(Screenshot())
     }
     
     func clearAll() {

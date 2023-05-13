@@ -119,9 +119,7 @@ public struct ShakeReportMainView<ViewModel: ShakeReportMainViewModel>: View {
                 .cornerRadius(12)
             }
             .onAppear {
-                ShakeReport.create(reportingService: MockedReportingService()) {
-                    // nothing
-                }
+                ShakeReport.create()
             }
         }
     }

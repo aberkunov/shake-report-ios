@@ -2,24 +2,20 @@ import SwiftUI
 import UIKit
 
 public struct ShakeReport {
-    public static func create(
-        reportingService: ReportingService,
-        onShowLogs: @escaping () -> Void
-    ) {
-        guard let currentWindow = UIWindow.current else {
-            assertionFailure("UIWindow.current is nil")
-            return
-        }
+    private static let viewTag = 2635289
+    static let floatingView: ShakeReportFloatingView = ShakeReportFloatingView(viewModel: ShakeReportFloatingPanelViewModel())
+    
+    public static func create() {
+        guard let currentWindow = UIWindow.current, currentWindow.viewWithTag(viewTag) == nil else { return }
         
-        let viewModel = ShakeReportFloatingPanelViewModel(reportingService: reportingService, onShowLogs: onShowLogs)
-        let floatingView = ShakeReportFloatingView(viewModel: viewModel)
         let floatingViewHosting = UIHostingController(rootView: floatingView)
         
-        let width = 150.0
+        let width = 175.0
         let height = 150.0
-        let xOffset = currentWindow.bounds.width - width - 20.0 // with margin
-        let yOffset = currentWindow.bounds.height - height - 100.0  // with margin and safe area
+        let xOffset = currentWindow.bounds.width - width
+        let yOffset = currentWindow.bounds.height - height - 100.0
         floatingViewHosting.view.frame = CGRect(x: xOffset, y: yOffset, width: width, height: height)
+        floatingViewHosting.view.tag = viewTag
         currentWindow.addSubview(floatingViewHosting.view)
         
 //

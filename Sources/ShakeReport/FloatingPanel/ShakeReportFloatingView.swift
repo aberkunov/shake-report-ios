@@ -2,14 +2,6 @@ import SwiftUI
 import Combine
 
 struct ShakeReportFloatingPanelViewModel {
-    private let reportingService: ReportingService
-    private let onShowLogs: () -> Void
-    
-    init(reportingService: ReportingService, onShowLogs: @escaping () -> Void) {
-        self.reportingService = reportingService
-        self.onShowLogs = onShowLogs
-    }
-    
     func takeScreenshot() {
         
     }
@@ -23,7 +15,7 @@ struct ShakeReportFloatingPanelViewModel {
     }
     
     func showLogs() {
-        onShowLogs()
+    
     }
 }
 
@@ -44,7 +36,7 @@ struct ShakeReportFloatingView: View {
     }
     
     var body: some View {
-        HStack {
+        HStack(spacing: .zero) {
             Button {
                 print("button tap")
                 isMinimized = isMinimized ? false : true
@@ -52,9 +44,10 @@ struct ShakeReportFloatingView: View {
                 Image(systemName: buttonImageName)
                     .font(.system(size: 40))
                     .foregroundColor(.accentColor)
-                    .frame(width: 25, height: 150)
-                    .contentShape(Rectangle())
             }
+            .frame(width: 25, height: 80)
+            .background(.ultraThinMaterial)
+            .cornerRadius(14, corners: [.topLeft, .bottomLeft])
             
             VStack(spacing: 10) {
                 Button("Take a screenshot") {
@@ -72,10 +65,15 @@ struct ShakeReportFloatingView: View {
                 Button("Show Logs") {
                     viewModel.showLogs()
                 }
-            }.frame(width: 150, height: 150)
+                
+                Button("Close") {
+                    
+                }
+            }
+            .frame(width: 150, height: 150)
+            .background(.ultraThinMaterial)
+            .cornerRadius(14)
         }
-        .background(.ultraThinMaterial)
-        .cornerRadius(14)
         .offset(x: offsetLeading)
         .animation(.default, value: offsetLeading)
     }
