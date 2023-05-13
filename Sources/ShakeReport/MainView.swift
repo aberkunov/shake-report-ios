@@ -90,18 +90,18 @@ public struct ShakeReportMainView<ViewModel: ShakeReportMainViewModel>: View {
                     ScrollView(.horizontal, showsIndicators: true) {
                         HStack {
                             ForEach(viewModel.screenshots) { screenshot in
-                                    Image(uiImage: screenshot.uiImage ?? UIImage())
-                                        .resizable()
-                                        .scaledToFit()
-                                        .border(.gray.opacity(0.2))
-                                        .matchedGeometryEffect(id: "title", in: namespace)
-                                        .onTapGesture {
-                                            withAnimation {
-                                                zoomed.toggle()
-                                                selectedImage = screenshot.uiImage ?? UIImage()
-                                            }
+                                Image(uiImage: screenshot.uiImage ?? UIImage())
+                                    .resizable()
+                                    .scaledToFit()
+                                    .border(.gray.opacity(0.2))
+                                    .matchedGeometryEffect(id: "title", in: namespace)
+                                    .onTapGesture {
+                                        withAnimation {
+                                            zoomed.toggle()
+                                            selectedImage = screenshot.uiImage ?? UIImage()
                                         }
-                                        .frame(height: 100)
+                                    }
+                                    .frame(height: 100)
                             }
                         }
                     }
@@ -117,6 +117,11 @@ public struct ShakeReportMainView<ViewModel: ShakeReportMainViewModel>: View {
                 .background(.blue)
                 .foregroundColor(.white)
                 .cornerRadius(12)
+            }
+            .onAppear {
+                ShakeReport.create(reportingService: MockedReportingService()) {
+                    // nothing
+                }
             }
         }
     }
