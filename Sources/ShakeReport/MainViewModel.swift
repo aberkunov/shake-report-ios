@@ -50,7 +50,7 @@ public class ShakeReportMainViewModelImpl: ShakeReportMainViewModel {
     
     private func setUp() async {
         do {
-            components = try await reportingService.getComponents()
+            components = try await reportingService.getComponents(projectId: 0)
             priorities = try await reportingService.getPrioritoies()
             teams = try await reportingService.getTeams()
             sprints = try await reportingService.getSprints()

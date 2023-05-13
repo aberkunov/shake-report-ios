@@ -18,7 +18,7 @@ struct ShakeReportExampleApp: App {
 }
 
 struct MockedReportingService: ReportingService {
-    func getComponents() async -> [Component] {
+    func getComponents(projectId: Int) async -> [Component] {
         return []
     }
     

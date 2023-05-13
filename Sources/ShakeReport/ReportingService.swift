@@ -1,5 +1,5 @@
 public protocol ReportingService {
-    func getComponents() async -> [Component]
+    func getComponents(projectId: Int) async -> [Component]
     func getTeams() async -> [Team]
     func getPrioritoies() async -> [TicketPriority]
     func getSprints() async -> [Sprint]
@@ -10,7 +10,7 @@ public protocol ReportingService {
 #if DEBUG
 
 struct MockedReportingService: ReportingService {
-    func getComponents() async -> [Component] {
+    func getComponents(projectId: Int) async -> [Component] {
         return []
     }
     
