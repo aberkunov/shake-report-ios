@@ -1,9 +1,13 @@
 import SwiftUI
 
-struct SwiftUIView<ViewModel: MainViewModel>: View {
+public struct ShakeReportMainView<ViewModel: ShakeReportMainViewModel>: View {
     @ObservedObject private(set) var viewModel: ViewModel
     
-    var body: some View {
+    public init(viewModel: ViewModel) {
+        self.viewModel = viewModel
+    }
+    
+    public var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
                 Picker(selection: $viewModel.selectedComponent, label: Text("")) {
@@ -51,14 +55,12 @@ struct SwiftUIView<ViewModel: MainViewModel>: View {
                     .cornerRadius(12)
                 }
                 
-                if #available(iOS 16, *) {
+                if #available(iOS 16.0, *) {
                     TextField("TITLE", text: $viewModel.title, axis: .vertical)
                         .padding(8)
                         .background(.gray.opacity(0.1))
                         .cornerRadius(12)
-                }
-                
-                if #available(iOS 16, *) {
+                    
                     TextField("BACKGROUND TO STORY", text: $viewModel.description, axis: .vertical)
                         .padding(8)
                         .background(.gray.opacity(0.1))
@@ -84,8 +86,8 @@ struct SwiftUIView<ViewModel: MainViewModel>: View {
     }
 }
 
-struct SwiftUIView_Previews: PreviewProvider {
+struct ShakeReportMainView_Previews: PreviewProvider {
     static var previews: some View {
-        SwiftUIView(viewModel: MainViewModelImpl())
+        ShakeReportMainView(viewModel: ShakeReportMainViewModelImpl())
     }
 }

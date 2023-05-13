@@ -1,6 +1,11 @@
-public struct ShakeReport {
-    public private(set) var text = "Hello, World!"
+import SwiftUI
 
-    public init() {
+public struct ShakeReport {
+    @ViewBuilder
+    public static func create(
+        service: ReportingService
+    ) -> some View {
+        let mainViewModel = ShakeReportMainViewModelImpl()
+        ShakeReportMainView(viewModel: mainViewModel)
     }
 }

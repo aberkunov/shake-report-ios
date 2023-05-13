@@ -1,4 +1,4 @@
-struct Component: Decodable, Identifiable, Hashable {
-    let id: String
-    var name: String
+public struct Component: Decodable, Identifiable, Hashable {
+    public let id: String
+    public var name: String
 }

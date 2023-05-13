@@ -6,12 +6,13 @@
 //
 
 import SwiftUI
+import ShakeReport
 
 @main
 struct ShakeReportExampleApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ShakeReportMainView(viewModel: ShakeReportMainViewModelImpl())
         }
     }
 }

@@ -1,4 +1,4 @@
-protocol ReportingService {
+public protocol ReportingService {
     func getComponents() async -> [Component]
     func getTeams() async -> [Team]
     func getPrioritoies() async -> [TicketPriority]

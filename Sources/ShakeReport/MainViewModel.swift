@@ -1,6 +1,6 @@
 import SwiftUI
 
-protocol MainViewModel: ObservableObject {
+public protocol ShakeReportMainViewModel: ObservableObject {
     var components: [Component] { get set }
     var priorities: [TicketPriority] { get set }
     var teams: [Team] { get set }
@@ -17,44 +17,52 @@ protocol MainViewModel: ObservableObject {
     var description: String { get set }
 }
 
-class MainViewModelImpl: MainViewModel {
+public class ShakeReportMainViewModelImpl: ShakeReportMainViewModel {
     
-    @Published var components = [Component]()
-    @Published var priorities = [TicketPriority]()
-    @Published var teams = [Team]()
-    @Published var sprints = [Sprint]()
-    @Published var users = [User]()
+    @Published public var components = [Component]()
+    @Published public var priorities = [TicketPriority]()
+    @Published public var teams = [Team]()
+    @Published public var sprints = [Sprint]()
+    @Published public var users = [User]()
     
-    @Published var selectedComponent: Component?
-    @Published var selectedPriority: TicketPriority?
-    @Published var selectedTeam: Team?
-    @Published var selectedSprint: Sprint?
-    @Published var selectedUser: User?
+    @Published public var selectedComponent: Component?
+    @Published public var selectedPriority: TicketPriority?
+    @Published public var selectedTeam: Team?
+    @Published public var selectedSprint: Sprint?
+    @Published public var selectedUser: User?
     
-    @Published var title = ""
-    @Published var description = ""
-    var screenshots = [
+    @Published public var title = ""
+    @Published public var description = ""
+    public var screenshots = [
         Screenshot(image: Image(systemName: "person")),
         Screenshot(image: Image(systemName: "person")),
         Screenshot(image: Image(systemName: "person"))
     ]
     
-    private let adapter = ReportingServiceImpl()
+    private let reportingService: ReportingService
+    
+    public init(reportingService: ReportingService) {
+        self.reportingService = reportingService
+    }
+    
+    public convenience init() {
+        self.init(reportingService: ReportingServiceImpl())
+    }
     
     private func setUp() async {
         do {
-            components = try await adapter.getComponents()
-            priorities = try await adapter.getPrioritoies()
-            teams = try await adapter.getTeams()
-            sprints = try await adapter.getSprints()
-            users = try await adapter.getUsers()
+            components = try await reportingService.getComponents()
+            priorities = try await reportingService.getPrioritoies()
+            teams = try await reportingService.getTeams()
+            sprints = try await reportingService.getSprints()
+            users = try await reportingService.getUsers()
         } catch {
             print(error)
         }
     }
 }
 
-struct Screenshot: Identifiable {
-    let id = UUID()
-    let image: Image
+public struct Screenshot: Identifiable {
+    public let id = UUID()
+    public let image: Image
 }
