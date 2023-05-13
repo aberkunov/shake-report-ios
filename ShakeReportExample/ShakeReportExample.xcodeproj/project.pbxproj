@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		F608FCB92A0E8AB8002D1FD2 /* ShakeReport in Frameworks */ = {isa = PBXBuildFile; productRef = F608FCB82A0E8AB8002D1FD2 /* ShakeReport */; };
 		F686AD8D2A0E8A1000D6207B /* ShakeReportExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F686AD8C2A0E8A1000D6207B /* ShakeReportExampleApp.swift */; };
-		F686AD8F2A0E8A1000D6207B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F686AD8E2A0E8A1000D6207B /* ContentView.swift */; };
 		F686AD912A0E8A1200D6207B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F686AD902A0E8A1200D6207B /* Assets.xcassets */; };
 		F686AD942A0E8A1200D6207B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F686AD932A0E8A1200D6207B /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -18,7 +17,6 @@
 		F608FCB62A0E8A77002D1FD2 /* shake-report-ios */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "shake-report-ios"; path = ..; sourceTree = "<group>"; };
 		F686AD892A0E8A1000D6207B /* ShakeReportExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShakeReportExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F686AD8C2A0E8A1000D6207B /* ShakeReportExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeReportExampleApp.swift; sourceTree = "<group>"; };
-		F686AD8E2A0E8A1000D6207B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		F686AD902A0E8A1200D6207B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F686AD932A0E8A1200D6207B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -64,7 +62,6 @@
 			isa = PBXGroup;
 			children = (
 				F686AD8C2A0E8A1000D6207B /* ShakeReportExampleApp.swift */,
-				F686AD8E2A0E8A1000D6207B /* ContentView.swift */,
 				F686AD902A0E8A1200D6207B /* Assets.xcassets */,
 				F686AD922A0E8A1200D6207B /* Preview Content */,
 			);
@@ -152,7 +149,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F686AD8F2A0E8A1000D6207B /* ContentView.swift in Sources */,
 				F686AD8D2A0E8A1000D6207B /* ShakeReportExampleApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,5 +1,5 @@
-struct User: Decodable, Identifiable, Hashable {
-    let id: String
-    var name: String
-    let iconUrl: String
+public struct User: Decodable, Identifiable, Hashable {
+    public let id: String
+    public var name: String
+    public let iconUrl: String
 }

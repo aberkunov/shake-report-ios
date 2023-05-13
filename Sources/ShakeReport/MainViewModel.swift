@@ -1,6 +1,6 @@
-import Foundation
+import SwiftUI
 
-protocol MainViewModel: ObservableObject {
+public protocol ShakeReportMainViewModel: ObservableObject {
     var components: [Component] { get set }
     var priorities: [TicketPriority] { get set }
     var teams: [Team] { get set }
@@ -11,38 +11,77 @@ protocol MainViewModel: ObservableObject {
     var selectedTeam: Team? { get set }
     var selectedSprint: Sprint? { get set }
     
+    var screenshots: [Screenshot] { get set }
+    
     var title: String { get set }
     var description: String { get set }
+    
+    func create() async
 }
 
-class MainViewModelImpl: MainViewModel {
+public class ShakeReportMainViewModelImpl: ShakeReportMainViewModel {
     
-    @Published var components = [Component]()
-    @Published var priorities = [TicketPriority]()
-    @Published var teams = [Team]()
-    @Published var sprints = [Sprint]()
-    @Published var users = [User]()
+    @Published public var components = [Component]()
+    @Published public var priorities = [TicketPriority]()
+    @Published public var teams = [Team]()
+    @Published public var sprints = [Sprint]()
+    @Published public var users = [User]()
     
-    @Published var selectedComponent: Component?
-    @Published var selectedPriority: TicketPriority?
-    @Published var selectedTeam: Team?
-    @Published var selectedSprint: Sprint?
-    @Published var selectedUser: User?
+    @Published public var selectedComponent: Component?
+    @Published public var selectedPriority: TicketPriority?
+    @Published public var selectedTeam: Team?
+    @Published public var selectedSprint: Sprint?
+    @Published public var selectedReporter: User?
+    @Published public var selectedAssignee: User?
     
-    @Published var title = ""
-    @Published var description = ""
+    @Published public var title = ""
+    @Published public var description = ""
+    public var screenshots = [
+        Screenshot(image: UIImage(systemName: "person")!),
+        Screenshot(image: UIImage(systemName: "person")!),
+        Screenshot(image: UIImage(systemName: "person")!)
+    ]
     
-    private let adapter = ReportingServiceImpl()
+    private let reportingService: ReportingService
+    
+    public init(reportingService: ReportingService) {
+        self.reportingService = reportingService
+    }
     
     private func setUp() async {
         do {
-            components = try await adapter.getComponents()
-            priorities = try await adapter.getPrioritoies()
-            teams = try await adapter.getTeams()
-            sprints = try await adapter.getSprints()
-            users = try await adapter.getUsers()
+            components = try await reportingService.getComponents()
+            priorities = try await reportingService.getPrioritoies()
+            teams = try await reportingService.getTeams()
+            sprints = try await reportingService.getSprints()
+            users = try await reportingService.getUsers()
         } catch {
             print(error)
         }
     }
+    
+    public func create() async {
+        let ticket = Ticket(
+            reporter: selectedReporter,
+            assignee: selectedAssignee,
+            team: selectedTeam,
+            component: selectedComponent,
+            sprint: selectedSprint,
+            priority: selectedPriority,
+            title: title,
+            description: description,
+            screenshots: screenshots.map({ $0.image.jpegData(compressionQuality: 0.8) })
+        )
+        
+        do {
+            try await reportingService.create(ticket)
+        } catch {
+            print(error)
+        }
+    }
+}
+
+public struct Screenshot: Identifiable {
+    public let id = UUID()
+    public let image: UIImage
 }
