@@ -4,9 +4,12 @@ public protocol ReportingService {
     func getPrioritoies() async -> [TicketPriority]
     func getSprints() async -> [Sprint]
     func getUsers() async -> [User]
+    func create(ticket: Ticket) async throws
 }
 
-struct ReportingServiceImpl: ReportingService {
+#if DEBUG
+
+struct MockedReportingService: ReportingService {
     func getComponents() async -> [Component] {
         return []
     }
@@ -26,4 +29,10 @@ struct ReportingServiceImpl: ReportingService {
     func getUsers() async -> [User] {
         return []
     }
+    
+    func create(ticket: Ticket) async throws {
+        
+    }
 }
+
+#endif

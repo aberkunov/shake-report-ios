@@ -62,9 +62,11 @@ public struct ShakeReportMainView<ViewModel: ShakeReportMainViewModel>: View {
                         .cornerRadius(12)
                     
                     TextField("BACKGROUND TO STORY", text: $viewModel.description, axis: .vertical)
+                        .frame(minHeight: 100)
                         .padding(8)
                         .background(.gray.opacity(0.1))
                         .cornerRadius(12)
+                        .lineLimit(5)
                 }
                 
                 ScrollView(.horizontal, showsIndicators: true) {
@@ -88,6 +90,6 @@ public struct ShakeReportMainView<ViewModel: ShakeReportMainViewModel>: View {
 
 struct ShakeReportMainView_Previews: PreviewProvider {
     static var previews: some View {
-        ShakeReportMainView(viewModel: ShakeReportMainViewModelImpl())
+        ShakeReportMainView(viewModel: ShakeReportMainViewModelImpl(reportingService: MockedReportingService()))
     }
 }

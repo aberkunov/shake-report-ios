@@ -45,10 +45,6 @@ public class ShakeReportMainViewModelImpl: ShakeReportMainViewModel {
         self.reportingService = reportingService
     }
     
-    public convenience init() {
-        self.init(reportingService: ReportingServiceImpl())
-    }
-    
     private func setUp() async {
         do {
             components = try await reportingService.getComponents()

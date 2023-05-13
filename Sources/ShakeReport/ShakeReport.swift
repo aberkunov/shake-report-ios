@@ -3,9 +3,9 @@ import SwiftUI
 public struct ShakeReport {
     @ViewBuilder
     public static func create(
-        service: ReportingService
+        reportingService: ReportingService
     ) -> some View {
-        let mainViewModel = ShakeReportMainViewModelImpl()
+        let mainViewModel = ShakeReportMainViewModelImpl(reportingService: reportingService)
         ShakeReportMainView(viewModel: mainViewModel)
     }
 }

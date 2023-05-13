@@ -12,7 +12,33 @@ import ShakeReport
 struct ShakeReportExampleApp: App {
     var body: some Scene {
         WindowGroup {
-            ShakeReportMainView(viewModel: ShakeReportMainViewModelImpl())
+            ShakeReportMainView(viewModel: ShakeReportMainViewModelImpl(reportingService: MockedReportingService()))
         }
+    }
+}
+
+struct MockedReportingService: ReportingService {
+    func getComponents() async -> [Component] {
+        return []
+    }
+    
+    func getTeams() async -> [Team] {
+        return []
+    }
+    
+    func getPrioritoies() async -> [TicketPriority] {
+        return []
+    }
+    
+    func getSprints() async -> [Sprint] {
+        return []
+    }
+    
+    func getUsers() async -> [User] {
+        return []
+    }
+    
+    func create(ticket: Ticket) async throws {
+        
     }
 }
