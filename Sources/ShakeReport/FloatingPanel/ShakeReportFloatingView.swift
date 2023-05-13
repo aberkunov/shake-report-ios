@@ -35,10 +35,6 @@ struct ShakeReportFloatingView: View {
         isMinimized ? "chevron.compact.left" : "chevron.compact.right"
     }
     
-    private var chevronForegroundColor: Color {
-        isMinimized ? .accentColor : .secondary.opacity(0.5)
-    }
-    
     var body: some View {
         HStack(spacing: .zero) {
             Button {
@@ -47,54 +43,50 @@ struct ShakeReportFloatingView: View {
             } label: {
                 Image(systemName: buttonImageName)
                     .font(.system(size: 40))
-                    .foregroundColor(chevronForegroundColor)
+                    .foregroundColor(.secondary.opacity(0.5))
             }
             .frame(width: 25, height: 80)
             .background(.ultraThinMaterial)
             .cornerRadius(14, corners: [.topLeft, .bottomLeft])
             
             VStack(spacing: 16) {
-                Button {
+                buttonWithBadge(
+                    imageName: "camera",
+                    badgeText: "1"
+                ) {
                     viewModel.takeScreenshot()
-                } label: {
-                    Image(systemName: "camera")
                 }
                 
                 Divider()
-                
-                Button {
+
+                buttonWithBadge(
+                    imageName: "video",
+                    badgeText: "6"
+                ) {
                     viewModel.recordVideo()
-                } label: {
-                    Image(systemName: "video")
                 }
                 
                 Divider()
                 
-                Button {
+                buttonWithBadge(imageName: "paperplane") {
                     viewModel.sendReport()
-                } label: {
-                    Image(systemName: "paperplane")
                 }
                 
                 Divider()
                 
-                Button {
+                buttonWithBadge(imageName: "terminal") {
                     viewModel.showLogs()
-                } label: {
-                    Image(systemName: "terminal")
                 }
                 
                 Divider()
-                
-                Button {
+
+                buttonWithBadge(imageName: "multiply") {
                     isMinimized = true
+                    
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
                         ShakeReport.close()
                     }
-                } label: {
-                    Image(systemName: "multiply")
-                        .foregroundColor(.red)
-                }
+                }.foregroundColor(.red)
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 20)
@@ -105,6 +97,32 @@ struct ShakeReportFloatingView: View {
         }
         .offset(x: offsetLeading)
         .animation(.default, value: offsetLeading)
+    }
+    
+    private func buttonWithBadge(
+        imageName: String,
+        badgeText: String? = nil,
+        action: @escaping () -> Void
+    ) -> some View {
+        Button {
+            action()
+            viewModel.takeScreenshot()
+        } label: {
+            ZStack {
+                Image(systemName: imageName)
+                
+                if let badgeText {
+                    Text(badgeText)
+                        .padding(.horizontal, 5)
+                        .padding(.vertical, 2)
+                        .font(.system(size: 12))
+                        .background(.red)
+                        .cornerRadius(10)
+                        .foregroundColor(.white)
+                        .offset(x: 12, y: -10)
+                }
+            }
+        }
     }
 }
 
