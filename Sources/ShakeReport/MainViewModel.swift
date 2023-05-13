@@ -1,4 +1,4 @@
-import Foundation
+import SwiftUI
 
 protocol MainViewModel: ObservableObject {
     var components: [Component] { get set }
@@ -10,6 +10,8 @@ protocol MainViewModel: ObservableObject {
     var selectedPriority: TicketPriority? { get set }
     var selectedTeam: Team? { get set }
     var selectedSprint: Sprint? { get set }
+    
+    var screenshots: [Screenshot] { get set }
     
     var title: String { get set }
     var description: String { get set }
@@ -31,6 +33,11 @@ class MainViewModelImpl: MainViewModel {
     
     @Published var title = ""
     @Published var description = ""
+    var screenshots = [
+        Screenshot(image: Image(systemName: "person")),
+        Screenshot(image: Image(systemName: "person")),
+        Screenshot(image: Image(systemName: "person"))
+    ]
     
     private let adapter = ReportingServiceImpl()
     
@@ -45,4 +52,9 @@ class MainViewModelImpl: MainViewModel {
             print(error)
         }
     }
+}
+
+struct Screenshot: Identifiable {
+    let id = UUID()
+    let image: Image
 }
